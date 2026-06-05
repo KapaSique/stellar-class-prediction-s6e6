@@ -99,6 +99,9 @@ w=best[0]
 print(f"\nBA: plain={balanced_accuracy_score(y,oof.argmax(1)):.5f} prior={balanced_accuracy_score(y,(oof/priors).argmax(1)):.5f} tuned={best[1]:.5f} w={w.round(3)}",flush=True)
 
 final=(pred*w).argmax(1)
+# сохраняем усреднённые вероятности ансамбля (компактно, для последующего бленда с NN)
+np.save("/kaggle/working/oof_ens.npy", oof.astype("float32"))
+np.save("/kaggle/working/pred_ens.npy", pred.astype("float32"))
 pd.DataFrame({"id":test["id"],"class":[classes[i] for i in final]}).to_csv("/kaggle/working/submission.csv",index=False)
 with open("/kaggle/working/scores.txt","w") as f:
     f.write(f"lgbm={balanced_accuracy_score(y,ol.argmax(1)):.5f} xgb={balanced_accuracy_score(y,ox.argmax(1)):.5f} cat={balanced_accuracy_score(y,oc.argmax(1)):.5f}\n")

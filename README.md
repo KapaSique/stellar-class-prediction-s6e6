@@ -1,7 +1,8 @@
 # 🌌 Predicting Stellar Class — Kaggle Playground S6E6
 
 [![Kaggle](https://img.shields.io/badge/Kaggle-Playground%20S6E6-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/playground-series-s6e6)
-[![Balanced Accuracy](https://img.shields.io/badge/Balanced%20Accuracy-0.9662-success)](#results)
+[![Balanced Accuracy](https://img.shields.io/badge/Balanced%20Accuracy-0.9697-success)](#results)
+[![Rank](https://img.shields.io/badge/Rank-top%20~25%25%20(136%2F544)-brightgreen)](#results)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![LightGBM](https://img.shields.io/badge/LightGBM-4.x-9ACD32)
 ![XGBoost](https://img.shields.io/badge/XGBoost-2.x-EB0F00)
@@ -14,10 +15,11 @@ Metric: **Balanced Accuracy** (mean per-class recall — robust to class imbalan
 
 | | Score |
 |---|---|
-| **Public Balanced Accuracy (ensemble)** | **0.96616** |
+| **Public Balanced Accuracy (GBDT + RealMLP blend)** | **0.96968** |
+| GBDT ensemble (LGBM+XGB+CatBoost) | 0.96616 |
 | Single LightGBM | 0.96532 |
-| Public top-1 | 0.97092 |
-| CV ↔ public gap | ~0.001 (well-calibrated, no overfit) |
+| Rank | **~136 / 544 (top ~25%)** |
+| Public top-1 | 0.97127 |
 
 ## The task
 
@@ -55,9 +57,23 @@ accuracy rather than plain accuracy.
 | LightGBM (single) | 0.96453 | 0.96532 |
 | XGBoost (single) | 0.96289 | — |
 | CatBoost (single) | 0.96194 | — |
-| **Ensemble (tuned weights)** | **0.96521** | **0.96616** |
+| GBDT ensemble (tuned weights) | 0.96521 | 0.96616 |
+| **GBDT + RealMLP blend** | **0.96911** | **0.96968** |
 
 The CV tracks the public leaderboard closely → the validation is trustworthy.
+
+### The blend that moved us ~100 places
+
+GBDTs are correlated with each other, so stacking three of them barely helps.
+A tabular **RealMLP neural net** is an *independent* signal — blending GBDT + RealMLP
+and re-tuning per-class weights for Balanced Accuracy jumped the score from
+**0.96616 → 0.96968** and the rank from ~210 to **~136 / 544**. Same lesson as on the
+sibling F1 project: *independent signal (GBDT + NN) beats more of the same.*
+
+> **Attribution:** the RealMLP OOF/test probabilities come from the public notebook
+> [*PS|S6|E6: RealMLP / PyTorch* by Vladimir Demidov (yekenot)](https://www.kaggle.com/code/yekenot/ps-s6-e6-realmlp-pytorch).
+> They are **not** redistributed here; `src/blend_with_realmlp.py` only reads them.
+> All feature engineering, the GBDT pipeline, CV and the blend/metric logic are this repo's own work.
 
 ## Repo structure
 
@@ -66,6 +82,7 @@ src/
   eda.py                  # data exploration (class balance, redshift split)
   train_lgbm.py           # single LightGBM + color features + prior-adjusted decision
   train_ensemble_gpu.py   # LGBM + XGB + CatBoost, 5-fold CV, class-weight tuning (Kaggle GPU)
+  blend_with_realmlp.py   # GBDT + RealMLP (NN) blend, OOF-verified  (best result)
 kaggle/
   kernel-metadata.json    # config to run the ensemble as a Kaggle GPU notebook
 results/
