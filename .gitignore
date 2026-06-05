@@ -1,0 +1,20 @@
+# Competition data (do NOT redistribute Kaggle data)
+data/
+*.csv
+!results/*.csv
+# artifacts
+*.npy
+*.pkl
+kaggle_gpu_out/
+kgo*/
+catboost_info/
+# secrets
+kaggle.json
+.kaggle/
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store

@@ -1,0 +1,17 @@
+{
+  "id": "ssstelmah/s6e6-stellar-gpu-ensemble",
+  "title": "S6E6 Stellar GPU Ensemble",
+  "code_file": "train_ensemble_gpu.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "competition_sources": [
+    "playground-series-s6e6"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}
