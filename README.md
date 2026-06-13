@@ -3,7 +3,8 @@
 <p align="center">
   <a href="https://www.kaggle.com/competitions/playground-series-s6e6"><img src="https://img.shields.io/badge/Kaggle-Playground%20S6E6-20BEFF?logo=kaggle&logoColor=white"></a>
   <img src="https://img.shields.io/badge/Balanced%20Accuracy-0.9711-success">
-  <img src="https://img.shields.io/badge/Leaderboard-top%20~8%25%20(~108%2F1300)-brightgreen">
+  <img src="https://img.shields.io/badge/Public%20LB-top%20~10%25-brightgreen">
+  <img src="https://img.shields.io/badge/status-final%20blend%20%40%20deadline%20Jun%2030-blue">
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/LightGBM-9ACD32"><img src="https://img.shields.io/badge/XGBoost-EB0F00"><img src="https://img.shields.io/badge/CatBoost-FFCC00"><img src="https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
@@ -23,6 +24,11 @@ classes (65 / 20 / 14 %).
 The headline isn't only the score — it's an **honest, out-of-fold-validated pipeline** plus a
 documented engineering journey (including diagnosing a real Kaggle GPU/driver mismatch) and a
 clear-eyed account of *what actually separates a strong solo solution from a grandmaster's*.
+
+> **Status:** competition runs until **2026-06-30**. Public LB is a fast-moving crowd (it doubled
+> in a week as people blend the same public notebooks). Numbers here are the public score; the
+> final private rank is settled after the deadline, with a planned final blend + 2-submission
+> hedge (public-max vs. the robust own model).
 
 ---
 

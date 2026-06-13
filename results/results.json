@@ -2,20 +2,44 @@
   "competition": "playground-series-s6e6",
   "task": "Predicting Stellar Class (multiclass: GALAXY / QSO / STAR)",
   "metric": "Balanced Accuracy",
-  "best_own_public": 0.96990,
+  "best_own_public": 0.9699,
   "best_leaderboard_public": 0.97106,
-  "rank": "~108 / ~1300 (top ~8%)",
+  "rank": "public top ~10% (LB doubled in a week); final private rank settled after 2026-06-30",
   "models": {
-    "lightgbm_single":            {"oof": 0.96453, "public": 0.96532},
-    "gbdt_ensemble_lgbm_xgb_cat": {"oof": 0.96520, "public": 0.96616, "class_weights": [0.9, 1.3, 1.7]},
-    "gbdt_plus_realmlp_blend":    {"oof": 0.96911, "public": 0.96990, "note": "best fully-own result"},
-    "my_lr_stacker":              {"oof": 0.96895, "public": 0.96934, "note": "GBDTs + PyTorch MLP -> LR meta (own implementation)"},
-    "mega_stack":                 {"oof": 0.97031, "public": 0.97106, "note": "LR meta incl. external RealMLP + public LR-stacker (Deotte)"}
+    "lightgbm_single": {
+      "oof": 0.96453,
+      "public": 0.96532
+    },
+    "gbdt_ensemble_lgbm_xgb_cat": {
+      "oof": 0.9652,
+      "public": 0.96616,
+      "class_weights": [
+        0.9,
+        1.3,
+        1.7
+      ]
+    },
+    "gbdt_plus_realmlp_blend": {
+      "oof": 0.96911,
+      "public": 0.9699,
+      "note": "best fully-own result"
+    },
+    "my_lr_stacker": {
+      "oof": 0.96895,
+      "public": 0.96934,
+      "note": "GBDTs + PyTorch MLP -> LR meta (own implementation)"
+    },
+    "mega_stack": {
+      "oof": 0.97031,
+      "public": 0.97106,
+      "note": "LR meta incl. external RealMLP + public LR-stacker (Deotte)"
+    }
   },
   "engineering_notes": {
     "gpu_bug": "Kaggle assigned Tesla P100 (sm_60); preinstalled torch 2.10+cu128 supports sm_70+ only. Fix: reinstall torch cu118 before import.",
     "stacking_lesson": "Stacking only helps with diverse strong base models; 4 correlated GBDTs (~0.99) gave no lift over a plain blend.",
     "realmlp_gap": "Out-of-the-box pytabkit RealMLP scored 0.946 vs tuned public RealMLP 0.969 — the gap is NN architecture tuning."
   },
-  "cv_to_public_gap": "~0.0005 (well-calibrated, no leaderboard overfit)"
+  "cv_to_public_gap": "~0.0005 (well-calibrated, no leaderboard overfit)",
+  "status": "competition active until 2026-06-30; final blend + 2-submission hedge planned"
 }
